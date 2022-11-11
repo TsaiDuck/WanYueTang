@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello sever!</h2>
+<h2>Hello XX!</h2>
 </body>
 </html>
