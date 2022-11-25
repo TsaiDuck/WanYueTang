@@ -1,7 +1,7 @@
 package com.wanyuetang.bean;
 
 public class users {
-    private int db_userid;
+    private Integer db_userid;
     private String db_username;
     private String db_pwd;
     private String db_phonnum;
@@ -9,11 +9,11 @@ public class users {
     private String db_heading;
     private boolean db_flag;
 
-    public int getDb_userid() {
+    public Integer getDb_userid() {
         return db_userid;
     }
 
-    public void setDb_userid(int db_userid) {
+    public void setDb_userid(Integer db_userid) {
         this.db_userid = db_userid;
     }
 
