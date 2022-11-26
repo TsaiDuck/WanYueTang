@@ -1,4 +1,4 @@
-package main.java.com.wanyuetang.controller;
+package main.webapp.java.com.wanyuetang.base;
 
 import org.apache.ibatis.annotations.Param;
 

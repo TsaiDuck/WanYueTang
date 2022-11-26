@@ -1,4 +1,4 @@
-package main.java.com.wanyuetang.controller;
+package com.wanyuetang.base;
 
 
 import com.alibaba.fastjson.JSONObject;

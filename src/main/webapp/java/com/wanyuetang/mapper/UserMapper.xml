@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanyuetang.mapper.UserMapper">
+    <!--实体类与数据库映射字段部分-->
+    <resultMap id="ResultMapUser" type="com.wanyuetang.bean.User">
+        <result property="db_userid" column="db_userid" jdbcType="INTEGER"/>
+        <result property="db_username" column="db_username" jdbcType="VARCHAR"/>
+        <result property="db_pwd" column="db_pwd" jdbcType="VARCHAR"/>
+        <result property="db_phonnum" column="db_phonnum" jdbcType="VARCHAR"/>
+        <result property="db_sex" column="db_sex" jdbcType="VARCHAR"/>
+        <result property="db_heading" column="db_heading" jdbcType="VARCHAR"/>
+        <result property="db_flag" column="db_flag" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+    <!-- 声明数据库字段 -->
+    <sql id="User_field">
+        db_userid,db_username,db_pwd,db_phonnum,db_sex,db_heading,db_flag
+    </sql>
+
+    <!-- 实体类属性-->
+    <sql id="User_insert">
+        #{db_userid},#{db_username},#{db_pwd},#{db_phonnum},#{db_sex},#{db_heading},#{db_flag}
+    </sql>
+
+    <!-- 更新结果  -->
+    <sql id="User_update">
+        <if test="db_username != null">
+            db_username = #{db_username},
+        </if>
+        <if test="db_pwd != null">
+            db_pwd = #{db_pwd},
+        </if>
+        <if test="db_phonnum != null">
+            db_phonnum = #{db_phonnum},
+        </if>
+        <if test="db_sex != null">
+            db_sex = #{db_sex},
+        </if>
+        <if test="db_heading != null">
+            db_heading = #{db_heading},
+        </if>
+        <if test="db_flag != null">
+            db_flag = #{db_flag}
+        </if>
+
+    </sql>
+
+    <!-- 查询时条件   -->
+    <sql id="User_where">
+        <if test="db_userid != null">
+            and db_userid = #{db_userid}
+        </if>
+        <if test="db_username != null">
+            and db_username = #{db_username}
+        </if>
+        <if test="db_pwd != null">
+            and db_pwd = #{db_pwd}
+        </if>
+        <if test="db_phonnum != null">
+            and db_phonnum = #{db_phonnum}
+        </if>
+        <if test="db_sex != null">
+            and db_sex = #{db_sex}
+        </if>
+        <if test="db_heading != null">
+            and db_heading = #{db_heading}
+        </if>
+        <if test="db_flag != null">
+            and db_flag = #{db_flag}
+        </if>
+    </sql>
+
+    <!--    新增        -->
+    <!--    参数：实体类-->
+    <!--    返回：主键 -->
+    <insert id="insert" parameterType="com.wanyuetang.bean.users" useGeneratedKeys="true" keyProperty="id">
+        insert into users(
+        <include refid="User_field"/>
+        ) values(
+        <include refid="User_insert"/>
+        )
+    </insert>
+
+    <!-- 根据实体主键删除一个实体-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from users where db_userid=#{db_userid}
+    </delete>
+
+    <!-- 通过实体删除-->
+    <delete id="deleteByEntity" parameterType="com.wanyuetang.bean.users">
+        delete from users where 1=1
+        <include refid="User_where"/>
+    </delete>
+
+    <!-- 通过map删除 -->
+    <delete id="deleteByMap" parameterType="java.util.HashMap">
+        delete from users where 1=1
+        <include refid="User_where"/>
+    </delete>
+
+    <!-- 更新一个实体 -->
+    <update id="update" parameterType="com.wanyuetang.bean.users">
+        update users
+        <set>
+            <include refid="User_update"/>
+        </set>
+        where 1=1
+        <include refid="User_where"/>
+    </update>
+
+    <!-- 通过id进行修改-->
+    <update id="updateById" parameterType="com.wanyuetang.bean.users">
+        update users
+        <set>
+            <include refid="User_update"/>
+        </set>
+        where db_userid=#{db_userid}
+    </update>
+
+    <!-- 根据参数查询-->
+    <select id="listByMap" resultMap="ResultMapUser" parameterType="map">
+        select <include refid="User_field"/>
+        from users where 1=1
+        <include refid="User_where"/>
+    </select>
+
+    <!-- 查询整个表 -->
+    <select id="listAll" resultMap="ResultMapUser">
+        select <include refid="User_field"/>
+        from users
+    </select>
+
+    <!-- 查询所有实体,根据实体属性值为判断条件查询所有实体-->
+    <select id="listAllByEntity" resultMap="ResultMapUser" parameterType="com.wanyuetang.bean.users">
+        select <include refid="User_field"/>
+        from users where 1=1
+        <include refid="User_where"/>
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="load" resultMap="ResultMapUser" parameterType="java.lang.Integer">
+        select <include refid="User_field"/>
+        from users where db_userid=#{db_userid}
+    </select>
+
+    <!-- 根据主键获取一个实体-->
+    <select id="getById" resultMap="ResultMapUser" parameterType="java.lang.Integer">
+        select <include refid="User_field"/>
+        from users where db_userid=#{db_userid}
+    </select>
+
+    <!-- 通过map查询-->
+    <select id="getByMap" resultMap="ResultMapUser" parameterType="map">
+        select <include refid="User_field"/>
+        from users where 1=1
+        <include refid="User_where"/>
+    </select>
+
+    <!--通过对象查询-不分页-->
+    <select id="getByEntity" resultMap="ResultMapUser" parameterType="com.javapandeng.po.User">
+        select <include refid="User_field"/>
+        from users where 1=1
+        <include refid="User_where"/>
+    </select>
+
+    <!-- 通过map查询分页-->
+    <select id="findByMap" resultMap="ResultMapUser" parameterType="map">
+        select <include refid="User_field"/>
+        from users where 1=1
+        <include refid="User_where"/>
+    </select>
+
+    <!--通过对象查询分页-->
+    <select id="findByEntity" resultMap="ResultMapUser" parameterType="com.wanyuetang.bean.users">
+        select <include refid="User_field"/>
+        from users where 1=1
+        <include refid="User_where"/>
+    </select>
+
+    <!-- 批量新增-->
+    <select id="insertBatch" parameterType="java.util.List">
+        insert into users(
+        <include refid="User_field"/>
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.db_username},#{item.db_pwd},#{item.db_phonnum},#{item.db_sex},#{item.db_headimg},#{item.db_flag})
+        </foreach>
+    </select>
+
+    <!-- 批量修改-->
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update user
+            <set>
+                <if test="item.db_username != null">
+                    userName = #{item.db_username},
+                </if>
+                <if test="item.db_pwd != null">
+                    passWord = #{item.db_pwd},
+                </if>
+                <if test="item.db_phonnum != null">
+                    phone = #{item.db_phonnum}
+                </if>
+                <if test="item.db_sex != null">
+                    realName = #{item.db_sex}
+                </if>
+                <if test="item.sex != null">
+                    sex = #{item.sex}
+                </if>
+                <if test="item.db_headimg != null">
+                    address = #{item.db_headimg}
+                </if>
+                <if test="item.db_flag != null">
+                    email = #{item.db_flag}
+                </if>
+
+            </set>
+            where 1=1
+            <if test="item.db_userid != null">
+                and id = #{item.db_userid}
+            </if>
+        </foreach>
+    </update>
+
+    <!-- 封装纯sql语法-->
+    <!-- 查询一个对象返回map-->
+    <select id="getBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回实体类-->
+    <select id="getBySqlReturnEntity" resultMap="ResultMapUser">
+        ${sql}
+    </select>
+
+    <!-- 查询一个对象返回map列表-->
+    <select id="listBySqlReturnMap" resultType="map">
+        ${sql}
+    </select>
+
+    <!-- 查询列表返回实体-->
+    <select id="listBySqlReturnEntity" resultMap="ResultMapUser">
+        ${sql}
+    </select>
+
+    <!-- 查询分页-->
+    <select id="findBySqlRerturnEntity" resultMap="ResultMapUser">
+        ${sql}
+    </select>
+
+    <!-- 通过sql修改-->
+    <update id="updateBysql">
+        ${sql}
+    </update>
+
+    <!-- 通过sql删除-->
+    <delete id="deleteBySql">
+        ${sql}
+    </delete>
+</mapper>

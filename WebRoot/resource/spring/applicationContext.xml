@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:content="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 配置文件总合成文件，将所有配置文件最终集成到当前文件内 -->
+    <!-- 集成其他配置文件，使用import标签导入，添加resource属性，给与属性的值为配置文件的路径 -->
+    <import resource="applicationContext_service.xml" /><!-- 将spring和mybatis结合配置 -->
+    <import resource="applicationContext_dao.xml" /><!-- springmvc配置 -->
+    <import resource="springmvc.xml" /><!-- 在spring中配置业务层内容 -->
+
+</beans>

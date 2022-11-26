@@ -18,13 +18,13 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <!-- 注意:这里加载的是总的配置文件 -->
-            <param-value>classpath*:./spring/applicationContext.xml</param-value>
+            <param-value>classpath:spring/applicationContext.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
     <!--处理字符乱码问题 encodingFilter-->
     <filter>
