@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试ajax</title>
+</head>
+<body>
+<div class="test">
+    <button id="login">发送登录请求</button>
+</div>
+</body>
+<script>
+    var login = document.querySelector('#login')
+    login.addEventListener('click', () => {
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', 'http://localhost:8080/doLogin')
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhr.send('username=zs&pwd=123')
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 || xhr.status === 200) {
+                console.log(xhr.responseText)
+            }
+        }
+    })
+</script>
+</html>
